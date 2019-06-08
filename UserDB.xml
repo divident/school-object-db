@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2016.2.1 (Build 803U_SU)" ts="2019-06-08 05:19:02">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2016.2.1 (Build 803U_SU)" ts="2019-06-08 08:02:02">
 <Class name="UserDB.Class">
 <Abstract>1</Abstract>
 <Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
-<TimeChanged>65172,18233.010912</TimeChanged>
+<TimeChanged>65172,28761.789166</TimeChanged>
 <TimeCreated>65172,7899.604991</TimeCreated>
 
-<Method name="Score">
+<Method name="CalculateScore">
 <Abstract>1</Abstract>
 </Method>
 
-<Property name="subjectName">
+<Property name="SubjectName">
 <Type>%String</Type>
 <Required>1</Required>
+<Parameter name="POPSPEC" value="ValueList(&quot;,Physics,Math,Chemistry,Biology&quot;)"/>
 </Property>
 
 <Property name="Id">
@@ -42,6 +43,40 @@
 <Value name="3">
 <Value>Id</Value>
 </Value>
+<Value name="4">
+<Value>SubjectName</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="UserDB.Degree">
+<Super>%SerialObject,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
+<TimeChanged>65172,28787.294321</TimeChanged>
+<TimeCreated>65172,26176.864507</TimeCreated>
+
+<Property name="Title">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="ValueList(&quot;,Inz,Mgr,Dr&quot;)"/>
+</Property>
+
+<Property name="DateOfGraduation">
+<Type>%Date</Type>
+<Parameter name="POPSPEC" value="Date()"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheSerialState</Type>
+<State>DegreeState</State>
+<StreamLocation>^UserDB.DegreeS</StreamLocation>
+<Data name="DegreeState">
+<Value name="1">
+<Value>Title</Value>
+</Value>
+<Value name="2">
+<Value>DateOfGraduation</Value>
+</Value>
 </Data>
 </Storage>
 </Class>
@@ -49,55 +84,79 @@
 
 <Class name="UserDB.Exercise">
 <Super>UserDB.Class</Super>
-<TimeChanged>65172,18782.743626</TimeChanged>
+<TimeChanged>65172,28817.887125</TimeChanged>
 <TimeCreated>65172,8325.821275</TimeCreated>
 
-<Method name="Score">
+<Method name="CalculateScore">
 <Implementation><![CDATA[
-	Set r = $RANDOM(6)
-	WRITE !,"Score from", ..subjectName, " exercise ", r
+	Set r = $RANDOM(6) + 2
+	WRITE !,"Score from", ..SubjectName, " exercise ", r
 	Quit
 ]]></Implementation>
 </Method>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
+<ExtentSize>60</ExtentSize>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>17</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>2.13</AverageFieldSize>
+</Property>
+<Property name="Id">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>8.83</AverageFieldSize>
+</Property>
+<Property name="SubjectName">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>29</AverageFieldSize>
+</Property>
 </Storage>
-</Class>
-
-
-<Class name="UserDB.Gender">
-<ClassType>datatype</ClassType>
-<ClientDataType>VARCHAR</ClientDataType>
-<OdbcType>INTEGER</OdbcType>
-<SqlCategory>INTEGER</SqlCategory>
-<TimeChanged>65172,9553.592696</TimeChanged>
-<TimeCreated>65172,9553.592696</TimeCreated>
 </Class>
 
 
 <Class name="UserDB.Lecture">
 <Super>UserDB.Class</Super>
-<TimeChanged>65172,18472.244906</TimeChanged>
+<TimeChanged>65172,28824.828592</TimeChanged>
 <TimeCreated>65172,7943.30788</TimeCreated>
 
-<Method name="Score">
+<Method name="CalculateScore">
 <Implementation><![CDATA[
-	Set r = $RANDOM(6)
-	WRITE !,"Score from", ..subjectName, " lecture", r
+	Set r = $RANDOM(6) + 2
+	WRITE !,"Score from", ..SubjectName, " lecture", r
 	Quit
 ]]></Implementation>
 </Method>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
+<ExtentSize>63</ExtentSize>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>16</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>2.11</AverageFieldSize>
+</Property>
+<Property name="Id">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>8.89</AverageFieldSize>
+</Property>
+<Property name="SubjectName">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>29</AverageFieldSize>
+</Property>
 </Storage>
 </Class>
 
 
 <Class name="UserDB.Person">
 <Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
-<TimeChanged>65172,17002.389834</TimeChanged>
+<TimeChanged>65172,26690.429988</TimeChanged>
 <TimeCreated>65171,84695.58237</TimeCreated>
 
 <Property name="Id">
@@ -110,24 +169,15 @@
 <Unique>1</Unique>
 </Index>
 
-<Property name="name">
+<Property name="Name">
 <Type>%String</Type>
 <Required>1</Required>
-</Property>
-
-<Property name="surname">
-<Type>%String</Type>
-<Required>1</Required>
-</Property>
-
-<Property name="Gender">
-<Type>Gender</Type>
-<Required>1</Required>
+<Parameter name="POPSPEC" value="Name()"/>
 </Property>
 
 <Method name="PrintPerson">
 <Implementation><![CDATA[
-	Write !,"Hello my name is ", ..name, ..surname
+	Write !,"Hello, my name is ", ..Name
 	Quit
 ]]></Implementation>
 </Method>
@@ -155,6 +205,12 @@
 <Value name="5">
 <Value>Gender</Value>
 </Value>
+<Value name="6">
+<Value>Name</Value>
+</Value>
+<Value name="7">
+<Value>Surname</Value>
+</Value>
 </Data>
 </Storage>
 </Class>
@@ -162,29 +218,45 @@
 
 <Class name="UserDB.Student">
 <Super>UserDB.Person</Super>
-<TimeChanged>65172,18645.619908</TimeChanged>
+<TimeChanged>65172,28639.137978</TimeChanged>
 <TimeCreated>65171,84756.870235</TimeCreated>
 
-<Property name="cardNumber">
+<Property name="CardNumber">
 <Type>%String</Type>
 <Required>1</Required>
+<Parameter name="POPSPEC" value="USZip()"/>
 </Property>
 
-<Index name="cardNumberIndex">
-<Properties>cardNumber</Properties>
+<Index name="CardNumberIndex">
+<Properties>CardNumber</Properties>
 <Unique>1</Unique>
 </Index>
 
-<Property name="classes">
+<Property name="Classes">
 <Type>Class</Type>
 <Collection>list</Collection>
+<Parameter name="POPSPEC" value="##class(UserDB.Student).GenerateClasses():3"/>
 </Property>
 
-<Method name="participateInClasses">
+<Method name="ParticipateInClasses">
 <Implementation><![CDATA[
-	For i=1:1:..classes.Count() 
+	For i=1:1:..Classes.Count() 
 	{
-		do ..classes.GetAt(i).Score()
+		do ..Classes.GetAt(i).CalculateScore()
+	}
+]]></Implementation>
+</Method>
+
+<Method name="GenerateClasses">
+<ClassMethod>1</ClassMethod>
+<ReturnType>Class</ReturnType>
+<Implementation><![CDATA[
+	Set r = $RANDOM(2)
+	IF r#2=0 {
+		return ##class(UserDB.Lecture).Populate(1)
+	}
+	ELSE {
+		return ##class(UserDB.Exercise).Populate(1)
 	}
 ]]></Implementation>
 </Method>
@@ -192,11 +264,17 @@
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DefaultData>StudentDefaultData</DefaultData>
-<ExtentSize>10</ExtentSize>
+<ExtentSize>73</ExtentSize>
 <Data name="StudentDefaultData">
 <Subscript>"Student"</Subscript>
 <Value name="1">
 <Value>cardNumber</Value>
+</Value>
+<Value name="2">
+<Value>CardNumber</Value>
+</Value>
+<Value name="3">
+<Value>Classes</Value>
 </Value>
 </Data>
 <Data name="classes">
@@ -210,7 +288,15 @@
 </Property>
 <Property name="%%ID">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>1.1</AverageFieldSize>
+<AverageFieldSize>2.47</AverageFieldSize>
+</Property>
+<Property name="CardNumber">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
+</Property>
+<Property name="Classes">
+<Selectivity>25.0000%</Selectivity>
+<AverageFieldSize>8.42</AverageFieldSize>
 </Property>
 <Property name="Gender">
 <Selectivity>100.0000%</Selectivity>
@@ -218,7 +304,15 @@
 </Property>
 <Property name="Id">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>1</AverageFieldSize>
+<AverageFieldSize>8.92</AverageFieldSize>
+</Property>
+<Property name="Name">
+<Selectivity>1.3699%</Selectivity>
+<AverageFieldSize>16.12</AverageFieldSize>
+</Property>
+<Property name="Surname">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>16.4</AverageFieldSize>
 </Property>
 <Property name="cardNumber">
 <Selectivity>1</Selectivity>
@@ -232,6 +326,9 @@
 <Selectivity>10.0000%</Selectivity>
 <AverageFieldSize>5</AverageFieldSize>
 </Property>
+<SQLMap name="CardNumberIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
 <SQLMap name="cardNumberIndex">
 <BlockCount>-4</BlockCount>
 </SQLMap>
@@ -241,26 +338,63 @@
 
 <Class name="UserDB.Teacher">
 <Super>UserDB.Person</Super>
-<TimeChanged>65171,84835.03859</TimeChanged>
+<TimeChanged>65172,28646.144975</TimeChanged>
 <TimeCreated>65171,84814.469403</TimeCreated>
 
 <Property name="phoneNumber">
 <Type>%String</Type>
 <Required>1</Required>
+<Parameter name="POPSPEC" value="USPhone()"/>
+</Property>
+
+<Property name="Degree">
+<Type>Degree</Type>
 </Property>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DefaultData>TeacherDefaultData</DefaultData>
+<ExtentSize>20</ExtentSize>
 <Data name="TeacherDefaultData">
-<Structure>listnode</Structure>
 <Subscript>"Teacher"</Subscript>
 <Value name="1">
 <Value>phoneNumber</Value>
 </Value>
+<Value name="2">
+<Value>Degree</Value>
+</Value>
 </Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>16</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>2.5</AverageFieldSize>
+</Property>
+<Property name="Degree">
+<Selectivity>5.0000%,DateOfGraduation:5.0000%,Title:100.0000%</Selectivity>
+<AverageFieldSize>15,DateOfGraduation:5,Title:9</AverageFieldSize>
+</Property>
+<Property name="Id">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>8.9</AverageFieldSize>
+</Property>
+<Property name="Name">
+<Selectivity>5.0000%</Selectivity>
+<AverageFieldSize>16.85</AverageFieldSize>
+</Property>
+<Property name="Surname">
+<Selectivity>5.0000%</Selectivity>
+<AverageFieldSize>16.8</AverageFieldSize>
+</Property>
+<Property name="phoneNumber">
+<Selectivity>5.0000%</Selectivity>
+<AverageFieldSize>12</AverageFieldSize>
+</Property>
 </Storage>
 </Class>
 
 
+<Package name="UserDB" sqlname="UserDB"/>
 </Export>
