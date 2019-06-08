@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2016.2.1 (Build 803U_SU)" ts="2019-06-08 05:19:02">
+<Class name="UserDB.Class">
+<Abstract>1</Abstract>
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
+<TimeChanged>65172,18233.010912</TimeChanged>
+<TimeCreated>65172,7899.604991</TimeCreated>
+
+<Method name="Score">
+<Abstract>1</Abstract>
+</Method>
+
+<Property name="subjectName">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Id">
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="IdIndex">
+<Properties>Id</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^UserDB.ClassD</DataLocation>
+<DefaultData>ClassDefaultData</DefaultData>
+<IdLocation>^UserDB.ClassD</IdLocation>
+<IndexLocation>^UserDB.ClassI</IndexLocation>
+<StreamLocation>^UserDB.ClassS</StreamLocation>
+<Data name="ClassDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>subjectName</Value>
+</Value>
+<Value name="3">
+<Value>Id</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="UserDB.Exercise">
+<Super>UserDB.Class</Super>
+<TimeChanged>65172,18782.743626</TimeChanged>
+<TimeCreated>65172,8325.821275</TimeCreated>
+
+<Method name="Score">
+<Implementation><![CDATA[
+	Set r = $RANDOM(6)
+	WRITE !,"Score from", ..subjectName, " exercise ", r
+	Quit
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+</Storage>
+</Class>
+
+
+<Class name="UserDB.Gender">
+<ClassType>datatype</ClassType>
+<ClientDataType>VARCHAR</ClientDataType>
+<OdbcType>INTEGER</OdbcType>
+<SqlCategory>INTEGER</SqlCategory>
+<TimeChanged>65172,9553.592696</TimeChanged>
+<TimeCreated>65172,9553.592696</TimeCreated>
+</Class>
+
+
+<Class name="UserDB.Lecture">
+<Super>UserDB.Class</Super>
+<TimeChanged>65172,18472.244906</TimeChanged>
+<TimeCreated>65172,7943.30788</TimeCreated>
+
+<Method name="Score">
+<Implementation><![CDATA[
+	Set r = $RANDOM(6)
+	WRITE !,"Score from", ..subjectName, " lecture", r
+	Quit
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+</Storage>
+</Class>
+
+
+<Class name="UserDB.Person">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
+<TimeChanged>65172,17002.389834</TimeChanged>
+<TimeCreated>65171,84695.58237</TimeCreated>
+
+<Property name="Id">
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="IdIndex">
+<Properties>Id</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="surname">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Gender">
+<Type>Gender</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="PrintPerson">
+<Implementation><![CDATA[
+	Write !,"Hello my name is ", ..name, ..surname
+	Quit
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^UserDB.PersonD</DataLocation>
+<DefaultData>PersonDefaultData</DefaultData>
+<IdLocation>^UserDB.PersonD</IdLocation>
+<IndexLocation>^UserDB.PersonI</IndexLocation>
+<StreamLocation>^UserDB.PersonS</StreamLocation>
+<Data name="PersonDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>name</Value>
+</Value>
+<Value name="3">
+<Value>surname</Value>
+</Value>
+<Value name="4">
+<Value>Id</Value>
+</Value>
+<Value name="5">
+<Value>Gender</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="UserDB.Student">
+<Super>UserDB.Person</Super>
+<TimeChanged>65172,18645.619908</TimeChanged>
+<TimeCreated>65171,84756.870235</TimeCreated>
+
+<Property name="cardNumber">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="cardNumberIndex">
+<Properties>cardNumber</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="classes">
+<Type>Class</Type>
+<Collection>list</Collection>
+</Property>
+
+<Method name="participateInClasses">
+<Implementation><![CDATA[
+	For i=1:1:..classes.Count() 
+	{
+		do ..classes.GetAt(i).Score()
+	}
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>StudentDefaultData</DefaultData>
+<ExtentSize>10</ExtentSize>
+<Data name="StudentDefaultData">
+<Subscript>"Student"</Subscript>
+<Value name="1">
+<Value>cardNumber</Value>
+</Value>
+</Data>
+<Data name="classes">
+<Attribute>classes</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"UserDB.Student.classes"</Subscript>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>16</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.1</AverageFieldSize>
+</Property>
+<Property name="Gender">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="Id">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="cardNumber">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>4.8</AverageFieldSize>
+</Property>
+<Property name="name">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>14.8</AverageFieldSize>
+</Property>
+<Property name="surname">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
+</Property>
+<SQLMap name="cardNumberIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="UserDB.Teacher">
+<Super>UserDB.Person</Super>
+<TimeChanged>65171,84835.03859</TimeChanged>
+<TimeCreated>65171,84814.469403</TimeCreated>
+
+<Property name="phoneNumber">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>TeacherDefaultData</DefaultData>
+<Data name="TeacherDefaultData">
+<Structure>listnode</Structure>
+<Subscript>"Teacher"</Subscript>
+<Value name="1">
+<Value>phoneNumber</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+</Export>
