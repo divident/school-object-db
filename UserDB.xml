@@ -341,7 +341,7 @@
 <TimeChanged>65172,28646.144975</TimeChanged>
 <TimeCreated>65171,84814.469403</TimeCreated>
 
-<Property name="phoneNumber">
+<Property name="PhoneNumber">
 <Type>%String</Type>
 <Required>1</Required>
 <Parameter name="POPSPEC" value="USPhone()"/>
@@ -358,7 +358,7 @@
 <Data name="TeacherDefaultData">
 <Subscript>"Teacher"</Subscript>
 <Value name="1">
-<Value>phoneNumber</Value>
+<Value>PhoneNumber</Value>
 </Value>
 <Value name="2">
 <Value>Degree</Value>
@@ -388,7 +388,7 @@
 <Selectivity>5.0000%</Selectivity>
 <AverageFieldSize>16.8</AverageFieldSize>
 </Property>
-<Property name="phoneNumber">
+<Property name="PhoneNumber">
 <Selectivity>5.0000%</Selectivity>
 <AverageFieldSize>12</AverageFieldSize>
 </Property>

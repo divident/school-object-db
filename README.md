@@ -1,3 +1,6 @@
+## Class Model
+![Alt text](school_model.jpg?raw=true "School model")
+
 ## Usage
 
 ```
@@ -37,3 +40,5 @@ Score Biology exercise 2
 Score Chemistry exercise 4
 Score Math exercise 3
 ```
+
+:full_moon_with_face:
