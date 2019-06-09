@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2016.2.1 (Build 803U_SU)" ts="2019-06-08 08:02:02">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2016.2.1 (Build 803U_SU)" ts="2019-06-09 17:55:03">
 <Class name="UserDB.Class">
 <Abstract>1</Abstract>
 <Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
@@ -338,7 +338,7 @@
 
 <Class name="UserDB.Teacher">
 <Super>UserDB.Person</Super>
-<TimeChanged>65172,28646.144975</TimeChanged>
+<TimeChanged>65173,63715.639779</TimeChanged>
 <TimeCreated>65171,84814.469403</TimeCreated>
 
 <Property name="PhoneNumber">
@@ -350,6 +350,13 @@
 <Property name="Degree">
 <Type>Degree</Type>
 </Property>
+
+<Method name="PrintPerson">
+<Implementation><![CDATA[
+	Write !,"Hello, my name is ", ..Degree," ", ..Name
+	Quit
+]]></Implementation>
+</Method>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
@@ -384,13 +391,13 @@
 <Selectivity>5.0000%</Selectivity>
 <AverageFieldSize>16.85</AverageFieldSize>
 </Property>
-<Property name="Surname">
-<Selectivity>5.0000%</Selectivity>
-<AverageFieldSize>16.8</AverageFieldSize>
-</Property>
 <Property name="PhoneNumber">
 <Selectivity>5.0000%</Selectivity>
 <AverageFieldSize>12</AverageFieldSize>
+</Property>
+<Property name="Surname">
+<Selectivity>5.0000%</Selectivity>
+<AverageFieldSize>16.8</AverageFieldSize>
 </Property>
 </Storage>
 </Class>
