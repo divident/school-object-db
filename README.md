@@ -6,9 +6,9 @@
 ```
 USER>Do ##class(UserDB.Student).Populate(10)
 
-USER>set s1 = ##class(UserDB.Student).OpenId(1)
+USER>set s1 = ##class(UserDB.Student).%OpenId(1)
 
-SET s1 = ##CLASS(UserDB.Student).OpenId(1)
+SET s1 = ##CLASS(UserDB.Student).%OpenId(1)
 
 USER>zwrite s1
 s1=<OBJECT REFERENCE>[1@UserDB.Student]
