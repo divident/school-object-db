@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2016.2.1 (Build 803U_SU)" ts="2019-06-11 15:07:48">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2016.2.1 (Build 803U_SU)" ts="2019-06-11 16:29:45">
 <Class name="UserDB.Class">
 <Abstract>1</Abstract>
 <Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
@@ -84,12 +84,18 @@
 
 <Class name="UserDB.Exercise">
 <Super>UserDB.Class</Super>
-<TimeChanged>65175,54146.329032</TimeChanged>
+<TimeChanged>65175,58577.694389</TimeChanged>
 <TimeCreated>65172,8325.821275</TimeCreated>
 
 <Method name="CalculateScore">
 <Implementation><![CDATA[
-	Set r = $RANDOM(6) + 2
+	Set r = $RANDOM(3) + 2
+	If r=3 || r=4
+	{
+		set f = $RANDOM(10)
+		if f>5
+		set r=r+0.5
+	}
 	WRITE !,"Score from ", ..SubjectName, " exercise ", r
 	Quit
 ]]></Implementation>
@@ -108,19 +114,19 @@
 </Property>
 <Property name="Id">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>8.84</AverageFieldSize>
+<AverageFieldSize>8.98</AverageFieldSize>
 </Property>
 <Property name="SubjectName">
 <Selectivity>25.0000%</Selectivity>
-<AverageFieldSize>6.72</AverageFieldSize>
+<AverageFieldSize>7.05</AverageFieldSize>
 </Property>
 </Storage>
 </Class>
 
 
 <Class name="UserDB.Grade">
-<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
-<TimeChanged>65174,68220.535923</TimeChanged>
+<Super>%SerialObject,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
+<TimeChanged>65175,55120.173349</TimeChanged>
 <TimeCreated>65174,2158.1691</TimeCreated>
 
 <Property name="GradeValue">
@@ -130,48 +136,34 @@
 </Property>
 
 <Storage name="Default">
-<Type>%Library.CacheStorage</Type>
-<DataLocation>^UserDB.GradeD</DataLocation>
-<DefaultData>GradeDefaultData</DefaultData>
-<IdLocation>^UserDB.GradeD</IdLocation>
-<IndexLocation>^UserDB.GradeI</IndexLocation>
+<Type>%Library.CacheSerialState</Type>
+<State>GradeState</State>
 <StreamLocation>^UserDB.GradeS</StreamLocation>
-<ExtentSize>43</ExtentSize>
-<Data name="GradeDefaultData">
+<Data name="GradeState">
+<Structure>listnode</Structure>
+<Subscript/>
 <Value name="1">
-<Value>%%CLASSNAME</Value>
-</Value>
-<Value name="2">
 <Value>GradeValue</Value>
 </Value>
 </Data>
-<Property name="%%CLASSNAME">
-<Selectivity>100.0000%</Selectivity>
-<AverageFieldSize>1</AverageFieldSize>
-</Property>
-<Property name="%%ID">
-<Selectivity>1</Selectivity>
-<AverageFieldSize>1.79</AverageFieldSize>
-</Property>
-<Property name="GradeValue">
-<Selectivity>16.6667%</Selectivity>
-<AverageFieldSize>1.84</AverageFieldSize>
-</Property>
-<SQLMap name="IDKEY">
-<BlockCount>-4</BlockCount>
-</SQLMap>
 </Storage>
 </Class>
 
 
 <Class name="UserDB.Lecture">
 <Super>UserDB.Class</Super>
-<TimeChanged>65175,54146.36581</TimeChanged>
+<TimeChanged>65175,58577.733933</TimeChanged>
 <TimeCreated>65172,7943.30788</TimeCreated>
 
 <Method name="CalculateScore">
 <Implementation><![CDATA[
-	Set r = $RANDOM(6) + 2
+	Set r = $RANDOM(3) + 2
+	If r=3 || r=4
+	{
+		set f = $RANDOM(10)
+		if f>5
+		set r=r+0.5
+	}
 	WRITE !,"Score from ", ..SubjectName, " lecture", r
 	Quit
 ]]></Implementation>
@@ -179,7 +171,7 @@
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
-<ExtentSize>15</ExtentSize>
+<ExtentSize>77</ExtentSize>
 <Property name="%%CLASSNAME">
 <Selectivity>100.0000%</Selectivity>
 <AverageFieldSize>16</AverageFieldSize>
@@ -190,11 +182,11 @@
 </Property>
 <Property name="Id">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>8.87</AverageFieldSize>
+<AverageFieldSize>8.86</AverageFieldSize>
 </Property>
 <Property name="SubjectName">
 <Selectivity>25.0000%</Selectivity>
-<AverageFieldSize>6.4</AverageFieldSize>
+<AverageFieldSize>6.25</AverageFieldSize>
 </Property>
 </Storage>
 </Class>
@@ -264,7 +256,7 @@
 
 <Class name="UserDB.Student">
 <Super>%Persistent,%Populate,UserDB.Person</Super>
-<TimeChanged>65175,54462.890145</TimeChanged>
+<TimeChanged>65175,58577.753567</TimeChanged>
 <TimeCreated>65171,84756.870235</TimeCreated>
 
 <Property name="CardNumber">
@@ -346,7 +338,7 @@
 <IdLocation>^UserDB.StudentD</IdLocation>
 <IndexLocation>^UserDB.StudentI</IndexLocation>
 <StreamLocation>^UserDB.StudentS</StreamLocation>
-<ExtentSize>35</ExtentSize>
+<ExtentSize>30</ExtentSize>
 <Data name="StudentDefaultData">
 <Subscript>"Student"</Subscript>
 <Value name="1">
@@ -382,31 +374,32 @@
 </Property>
 <Property name="%%ID">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>2</AverageFieldSize>
+<AverageFieldSize>2.97</AverageFieldSize>
 </Property>
 <Property name="CardNumber">
 <Selectivity>1</Selectivity>
 <AverageFieldSize>5</AverageFieldSize>
 </Property>
 <Property name="Classes">
-<Selectivity>100.0000%</Selectivity>
-<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>3.3333%</Selectivity>
+<OutlierSelectivity>.933333:</OutlierSelectivity>
+<AverageFieldSize>2.33</AverageFieldSize>
 </Property>
 <Property name="Gender">
 <Selectivity>100.0000%</Selectivity>
 <AverageFieldSize>1</AverageFieldSize>
 </Property>
 <Property name="Grades">
-<Selectivity>3.2258%</Selectivity>
-<AverageFieldSize>27.2</AverageFieldSize>
+<Selectivity>3.4483%</Selectivity>
+<AverageFieldSize>62.07</AverageFieldSize>
 </Property>
 <Property name="Id">
-<Selectivity>2.8571%</Selectivity>
-<AverageFieldSize>8.94</AverageFieldSize>
+<Selectivity>3.3333%</Selectivity>
+<AverageFieldSize>8.9</AverageFieldSize>
 </Property>
 <Property name="Name">
-<Selectivity>2.8571%</Selectivity>
-<AverageFieldSize>15.86</AverageFieldSize>
+<Selectivity>3.3333%</Selectivity>
+<AverageFieldSize>14.97</AverageFieldSize>
 </Property>
 <Property name="Surname">
 <Selectivity>10.0000%</Selectivity>
@@ -439,7 +432,7 @@
 
 <Class name="UserDB.Teacher">
 <Super>UserDB.Person</Super>
-<TimeChanged>65175,49979.501643</TimeChanged>
+<TimeChanged>65175,58836.458708</TimeChanged>
 <TimeCreated>65171,84814.469403</TimeCreated>
 
 <Property name="PhoneNumber">
@@ -462,7 +455,7 @@
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DefaultData>TeacherDefaultData</DefaultData>
-<ExtentSize>20</ExtentSize>
+<ExtentSize>40</ExtentSize>
 <Data name="TeacherDefaultData">
 <Subscript>"Teacher"</Subscript>
 <Value name="1">
@@ -478,22 +471,22 @@
 </Property>
 <Property name="%%ID">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>2</AverageFieldSize>
+<AverageFieldSize>2.18</AverageFieldSize>
 </Property>
 <Property name="Degree">
-<Selectivity>5.0000%,DateOfGraduation:5.0000%,Title:33.3333%</Selectivity>
-<AverageFieldSize>8.75,DateOfGraduation:5,Title:2.75</AverageFieldSize>
+<Selectivity>2.5000%,DateOfGraduation:2.5000%,Title:33.3333%</Selectivity>
+<AverageFieldSize>8.8,DateOfGraduation:5,Title:2.8</AverageFieldSize>
 </Property>
 <Property name="Id">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>8.9</AverageFieldSize>
+<AverageFieldSize>8.95</AverageFieldSize>
 </Property>
 <Property name="Name">
-<Selectivity>5.0000%</Selectivity>
-<AverageFieldSize>16.05</AverageFieldSize>
+<Selectivity>2.5000%</Selectivity>
+<AverageFieldSize>16.33</AverageFieldSize>
 </Property>
 <Property name="PhoneNumber">
-<Selectivity>5.0000%</Selectivity>
+<Selectivity>2.5000%</Selectivity>
 <AverageFieldSize>12</AverageFieldSize>
 </Property>
 <Property name="Surname">
